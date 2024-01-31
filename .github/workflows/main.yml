@@ -1,0 +1,33 @@
+# .github/workflows/cdk_deploy.yml
+
+name: CDK Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install CDK
+      run: npm install -g aws-cdk
+
+    - name: Install dependencies
+      run: pip install -r cdk/requirements.txt
+
+    - name: Deploy to AWS
+      run: cd cdk && cdk deploy
+      env:
+        CDK_DEFAULT_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
+        CDK_DEFAULT_REGION: eu-west-1
