@@ -1,0 +1,9 @@
+{
+    "app": "python3 app.py",
+    "context": {
+      "aws-cdk:enableDiffNoFail": "true",
+      "aws-cdk:enablePathMetadata": "true",
+      "aws-cdk:bootstrapExecutionRole": "arn:aws:iam::211125474598:role/AdministratorAccess"
+    }
+  }
+  

@@ -26,8 +26,15 @@ jobs:
     - name: Install dependencies
       run: pip install -r cdk/requirements.txt
 
+    - name: Synthesize AWS CloudFormation templates
+      run: cd cdk && cdk synth
+
     - name: Deploy to AWS
       run: cd cdk && cdk deploy
       env:
         CDK_DEFAULT_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
         CDK_DEFAULT_REGION: eu-west-1
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+        
