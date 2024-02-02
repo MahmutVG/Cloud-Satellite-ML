@@ -26,6 +26,9 @@ jobs:
     - name: Install dependencies
       run: pip install -r cdk/requirements.txt
 
+    - name: Bootstrap AWS environment
+      run: cd cdk && cdk bootstrap
+
     - name: Synthesize AWS CloudFormation templates
       run: cd cdk && cdk synth
 
@@ -36,5 +39,3 @@ jobs:
         CDK_DEFAULT_REGION: eu-west-1
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-        
