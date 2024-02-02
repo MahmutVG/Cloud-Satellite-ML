@@ -4,25 +4,33 @@ from aws_cdk import (
     aws_events as events,
     aws_events_targets as targets,
     aws_iam as iam,
-    aws_lambda_python as lambda_python,
-    core,
+    aws_lambda as _lambda,
+    App,
+    Stack,
+    RemovalPolicy,
+    Duration,
+
 )
+from constructs import Construct
+# pip install without cache
 
-class TifToPngConversionStack(core.Stack):
+class TifToPngConversionStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # S3 Bucket
-        input_bucket = s3.Bucket(self, 'InputBucket', removal_policy=core.RemovalPolicy.DESTROY)
+        input_bucket = s3.Bucket(self, 'InputBucket', removal_policy=RemovalPolicy.DESTROY)
 
-        # Lambda function
-        conversion_lambda = lambda_python.PythonFunction(
+        conversion_lambda = _lambda.Function(
             self, 'ConversionLambda',
-            entry='lambda',
-            runtime=_lambda.Runtime.PYTHON_3_8,
-            handler='convert.handler',
-            environment={'OUTPUT_BUCKET_NAME': input_bucket.bucket_name},
+            runtime=_lambda.Runtime.FROM_IMAGE,
+            code=_lambda.Code.from_asset_image(directory="../", file="src/dbscan/Dockerfile"),
+            handler=_lambda.Handler.FROM_IMAGE,
+            environment={
+                "OUTPUT_BUCKET_NAME": input_bucket.bucket_name,
+            },
+            timeout=Duration.minutes(15),
         )
 
         # Grant Lambda permission to read from S3 bucket
@@ -52,6 +60,8 @@ class TifToPngConversionStack(core.Stack):
             )
         )
 
-app = core.App()
+app = App()
 TifToPngConversionStack(app, "TifToPngConversionStack")
 app.synth()
+
+

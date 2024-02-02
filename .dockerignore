@@ -1,0 +1,42 @@
+# Development files
+tests
+**/xdata
+local_inputs
+xdata
+
+# Documentation
+README.md
+sample_input.json
+soc_diagram.png
+webapp_assets.md
+webapp_assets_diagram.png
+
+# IaC
+cdk
+**/cdk.out
+
+# Language specific directories
+**/.env
+**/.venv
+**/__pycache__
+**/.pytest_cache
+**/bin
+**/obj
+
+# Tools and config files
+.coverage
+.dockerignore
+.flake8
+.nox
+.pre-commit-config.yaml
+.python-version
+.secrets.baseline
+.yamllint.yaml
+noxfile.py
+poetry.lock
+pyproject.toml
+
+# Version control and builds
+.git
+.github
+.gitignore
