@@ -17,9 +17,7 @@ RUN apt-get update && \
     curl -Lo /usr/bin/aws-lambda-rie https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie && \
     chmod +x /usr/bin/aws-lambda-rie
 
-COPY shared/utils.py ${FUNCTION_DIR}/shared/
-COPY shared/data_library_client.py ${FUNCTION_DIR}/shared/
-COPY src/dbscan/dbscan.py ${FUNCTION_DIR}/
+COPY src/dbscan/handler.py ${FUNCTION_DIR}/
 COPY src/dbscan/entrypoint.sh /entrypoint.sh
 
 WORKDIR ${FUNCTION_DIR}
