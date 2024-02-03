@@ -36,7 +36,7 @@ jobs:
     - name: Bootstrap AWS environment
       run: |
         cd cdk
-        cdk bootstrap aws://$AWS_ACCOUNT_ID/eu-west-1
+        cdk bootstrap aws://${{ secrets.AWS_ACCOUNT_ID }}/eu-west-1
 
 
     - name: Synthesize AWS CloudFormation templates
