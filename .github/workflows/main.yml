@@ -43,7 +43,7 @@ jobs:
       run: cd cdk && cdk synth
 
     - name: Deploy to AWS
-      run: cd cdk && cdk deploy
+      run: cd cdk && cdk deploy --require-approval never
       env:
         CDK_DEFAULT_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
         CDK_DEFAULT_REGION: eu-west-1
