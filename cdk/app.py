@@ -63,5 +63,3 @@ class TifToPngConversionStack(Stack):
 app = App()
 TifToPngConversionStack(app, "TifToPngConversionStack")
 app.synth()
-
-
