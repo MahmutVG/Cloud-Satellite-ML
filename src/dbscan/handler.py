@@ -112,3 +112,4 @@ def generate_bbox_from_lat_lon(lat, lon, radius):
 
 if __name__ == "__main__":
     handler({}, {})
+
