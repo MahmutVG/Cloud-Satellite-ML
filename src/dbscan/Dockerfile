@@ -2,12 +2,10 @@ ARG FUNCTION_DIR="/function"
 
 FROM --platform=linux/amd64 osgeo/gdal:ubuntu-small-3.5.1
 
-# print out all files in the current directory
-RUN ls -la
+ARG FUNCTION_DIR
 
+# print out all files in the current directory
 COPY requirements.txt ${FUNCTION_DIR}/
-COPY handler.py ${FUNCTION_DIR}/
-COPY entrypoint.sh /entrypoint.sh
 
 RUN apt-get update && \
     apt-get upgrade -y && \
@@ -20,9 +18,12 @@ RUN apt-get update && \
     curl -Lo /usr/bin/aws-lambda-rie https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie && \
     chmod +x /usr/bin/aws-lambda-rie
 
+COPY handler.py ${FUNCTION_DIR}/
+COPY entrypoint.sh entrypoint.sh
+
 WORKDIR ${FUNCTION_DIR}
 
-RUN chmod +x /entrypoint.sh
+RUN chmod +x entrypoint.sh
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "handler.handler" ]
