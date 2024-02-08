@@ -4,6 +4,8 @@ FROM --platform=linux/amd64 osgeo/gdal:ubuntu-small-3.5.1
 
 ARG FUNCTION_DIR
 
+# print out all files in the current directory
+RUN ls -la
 COPY requirements.txt ${FUNCTION_DIR}/
 
 RUN apt-get update && \
