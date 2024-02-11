@@ -71,7 +71,7 @@ def resample_band(input_path, x_res, y_res):
 
 def handler(event, context):
     date = event.get('date', "2024-01-01T00:00:00.000Z/2024-03-05T00:00:00.000Z")
-    coords = event.get('coordinates', "31.102,36.793")
+    coords = event.get('coordinates', "37.0463,31.1018")
     bbox = generate_bbox_from_lat_lon(*map(float, coords.split(',')), 0.00000001)
     sentinel_handler(date, bbox)
 
