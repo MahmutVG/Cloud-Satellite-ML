@@ -40,7 +40,7 @@ jobs:
         cdk bootstrap aws://${{ secrets.AWS_ACCOUNT_ID }}/eu-west-1
 
     - name: Build Docker image
-      run: docker build -t dbscan -f src/dbscan/Dockerfile .
+      run: cd cdk && docker build -t dbscan -f src/dbscan/Dockerfile .
 
     - name: Synthesize AWS CloudFormation templates
       run: cd cdk && cdk synth
